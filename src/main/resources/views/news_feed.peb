@@ -1,0 +1,43 @@
+<rss xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+     version="2.0">
+  <channel>
+    <title>QLDT UTC - News feed</title>
+    <atom:link href="{{ self_url }}" rel="self" type="application/rss+xml"></atom:link>
+    <description>Qldt UTC - Important news feed</description>
+    <link> {{ self_url }}</link>
+    <lastBuildDate>{{ last_crawled_at | date('E, dd MMM yyyy HH:mm:ss Z') }}</lastBuildDate>
+    <language>vi-VN</language>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+
+    {% for new in news %}
+      <item>
+        <title>{{ new['title'] }}</title>
+        <link>https://rss.402vanhoa.ml/important-news</link>
+        {% if new.date is not null %}
+          <pubDate>{{ new.date | date('E, dd MMM yyyy HH:mm:ss Z') }}</pubDate>
+        {% endif %}
+        <guid isPermaLink="false">{{ new.url}}</guid>
+        <description>
+        <![CDATA[
+            {{ new.short_title }}
+        ]]>
+        </description>
+
+        <content:encoded>
+        <![CDATA[
+            {{ new.content | raw }}
+            {% if new['files'] is not empty %}
+            <br/><br/>
+            ***Files đính kèm***
+            <br/>
+            {% for file in new['files'] %}[{{ file.title }}]: {{ file.url }}<br/>{% endfor %}
+            {% endif %}
+        ]]>
+        </content:encoded>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

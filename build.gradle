@@ -1,0 +1,52 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.1'
+}
+
+group 'quannt'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'io.vertx:vertx-web:3.8.3'
+    compile 'io.vertx:vertx-web-client:3.8.3'
+    compile 'io.vertx:vertx-config:3.8.3'
+    compile 'io.vertx:vertx-web-templ-pebble:3.8.3'
+    compile 'io.pebbletemplates:pebble:3.0.8'
+    compile 'com.spotify:completable-futures:0.3.2'
+
+    compile 'commons-io:commons-io:2.6'
+    compile 'org.apache.commons:commons-lang3:3.8.1'
+    compile 'commons-validator:commons-validator:1.6'
+
+    compile 'org.ocpsoft.prettytime:prettytime:4.0.2.Final'
+    compile 'org.jsoup:jsoup:1.11.3'
+
+    compile 'ch.qos.logback:logback-core:1.2.3'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+
+    compile 'org.codehaus.groovy:groovy:2.5.7'
+    compile 'org.codehaus.groovy:groovy-json:2.5.7'
+    compile 'org.codehaus.groovy:groovy-xml:2.5.7'
+    compile 'net.jodah:failsafe:2.0.1'
+
+    testCompile 'org.spockframework:spock-core:1.2-groovy-2.5'
+}
+
+def mainClassName = "app.Main"
+
+shadowJar {
+    classifier = "fat"
+    destinationDir = new File("dokku")
+    archiveName = "qldt-rss.${extension}"
+    manifest {
+        attributes "Main-Class": mainClassName
+    }
+}
