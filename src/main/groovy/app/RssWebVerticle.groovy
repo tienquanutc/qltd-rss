@@ -48,7 +48,7 @@ class RssWebVerticle extends AbstractVerticle {
                         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
                 )),
                 //auth here
-                [studentId: System.getProperty('studentId'), password: System.getProperty('password')]
+                [studentId: "160702211", password: "16021995"]
         )
 
         this.setupRouter()

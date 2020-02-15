@@ -23,6 +23,7 @@ class NewFeedHandler extends ViewsHandler {
 
     @Override
     void handle(RoutingContext ctx) {
+        println ctx.request().headers()
         long currentTimeMillis = System.currentTimeMillis()
         String selfUrl = ctx.request().absoluteURI().replace('http:', 'https:')
         boolean refresh = ctx.request().getParam("refresh") == 'true'
